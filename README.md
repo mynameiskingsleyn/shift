@@ -11,4 +11,6 @@ This project was built with symfony4 PHP framework.
       1. Service Oriented Architecture.
       2. Repository pattern.
 
-#
+#   Functionality
+    #input Accepts amount provided at input amount_provided(in dolars and/or cents), total cost at param total_cost(in dolars and/or cents)
+    #output Returns your change amount in Dolars and cents. Also provides the exact change by returning the count of each denomination of bills and/or coins. 
