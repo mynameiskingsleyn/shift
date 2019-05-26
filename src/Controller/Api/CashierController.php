@@ -5,15 +5,19 @@ namespace App\Controller\Api;
 use App\Service\USAMoney;
 //use App\Interfaces\AppMoneyInterface;
 use App\Repository\AppRepository\AppMoneyRepository;
-use Symfony\Component\Routing\Annotation\Route;
+//use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+//use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
-* @Route("/cashierapi")
+* @Route("/api",name="api_")
 */
-class CashierController extends AbstractController
+class CashierController extends Controller //AbstractController
 {
     private $money;
     public function __construct(AppMoneyRepository $money)
@@ -21,7 +25,7 @@ class CashierController extends AbstractController
         $this->money = $money;
     }
     /**
-    * @Route("/calculatechange",name="calculate_change")
+    * @Rest\Get("/checkout",name="calculate_change")
     */
     public function calculateChange(Request $request)
     {
@@ -44,7 +48,7 @@ class CashierController extends AbstractController
             $data = [
               'error'=>1,
             'status' => $this->money->getStatus(),
-            'message'=> $this->money->getMessage()
+            'error_message'=> $this->money->getMessage()
           ];
 
             return new Response(json_encode($data));
@@ -54,7 +58,7 @@ class CashierController extends AbstractController
             $data = [
             'error'=> 1,
             'status'=> 3000,
-            'message'=>'More money required'
+            'error_message'=>'More money required'
           ];
         } elseif ($balance == 0) {
             $data = [
@@ -71,7 +75,11 @@ class CashierController extends AbstractController
             'change' =>$this->money->getBank()
           ];
         }
+        $response = json_encode($data);
 
-        return new Response(json_encode($data));
+        return $this->render('Api/cashback.json.twig', [
+           'response'=>$response
+          ]);
+        //return new Response($response);
     }
 }

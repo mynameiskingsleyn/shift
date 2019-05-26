@@ -22,11 +22,6 @@ class AppMoneyRepository implements AppMoneyInterface
         return $this->model->getBank();
     }
 
-    public function checkGoodMoney($money)
-    {
-        return $this->model->checkGoodMoney($money);
-    }
-
     public function validateTransaction()
     {
         return $this->model->validateTransaction();
