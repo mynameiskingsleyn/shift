@@ -4,7 +4,7 @@ This project was built with symfony4 PHP framework.
     This is a simple api end point which accepts two parameters total_cost and amount_provided.
     total_cost is the amount incurred on a single transaction, amount_provided is the exact amount paid
 #   endpoint
-    Sample endpoint is http://switch.test/api/checkout?total_cost=234.34&amount_provided=340.353
+    Sample endpoint is http://switch.test/api/checkout?total_cost=234.34&amount_provided=340.35
     Sample output => {"error":0,"status":201,"balance":"$106.01","change":{"Hundred":1,"Five":1,"One":1,"Penny":1}}
 
 #   Currency
