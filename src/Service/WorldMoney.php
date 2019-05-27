@@ -2,7 +2,9 @@
 
 namespace App\Service;
 
-abstract class WorldMoney
+use App\Interfaces\AppServiceMoneyInterface;
+
+abstract class WorldMoney implements AppServiceMoneyInterface
 {
     protected $cost;
     protected $amount;

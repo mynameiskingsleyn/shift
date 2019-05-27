@@ -2,14 +2,15 @@
 namespace App\Repository\AppRepository;
 
 use App\Interfaces\AppMoneyInterface;
+use App\Interfaces\AppServiceMoneyInterface;
 
 class AppMoneyRepository implements AppMoneyInterface
 {
     protected $model;
 
-    public function __construc(AppMoneyInterface $appMoneyInterface)
+    public function __construct(AppServiceMoneyInterface $appMoney)
     {
-        $this->model = $appMoneyInterface;
+        $this->model = $appMoney;
     }
 
     public function tenderChange($num)
@@ -49,5 +50,10 @@ class AppMoneyRepository implements AppMoneyInterface
     public function calculate()
     {
         return $this->model->calculate();
+    }
+
+    public function setTransaction($cost, $amount)
+    {
+        return $this->model->setTransaction($cost, $amount);
     }
 }

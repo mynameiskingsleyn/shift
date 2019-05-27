@@ -5,6 +5,7 @@ namespace App\Controller\Api;
 use App\Service\USAMoney;
 use App\Repository\AppRepository\AppMoneyRepository;
 //use Symfony\Component\Routing\Annotation\Route;
+use App\Interfaces\AppMoneyInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -43,7 +44,7 @@ class CashierController extends Controller //AbstractController
         }
         $this->money->setModel(new USAMoney($total_cost, $amount_provided));// for usa currency api
         $this->money->validateTransaction();
-        //$validated = $this->money->validated();
+
         if (!$this->money->validated()) {
             $data = [
               'error'=>1,
