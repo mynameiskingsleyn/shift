@@ -8,7 +8,7 @@ This project was built with symfony4 PHP framework.
     Sample output => {"error":0,"status":201,"balance":"$106.01","change":{"Hundred":1,"Five":1,"One":1,"Penny":1}}
 #   Technicality
     This project demonstrates an OOP approach to programing
-    It also demonstrates two main advance concepts. TDD Pattern was not used. but testing would be implemented soon.
+    It also demonstrates two main advance concepts. TDD Pattern was not used.
       1. Service Oriented Architecture.
       2. Repository pattern.
 
@@ -17,7 +17,7 @@ This project was built with symfony4 PHP framework.
     #output Returns your change amount in Dolars and cents. Also provides the exact change by returning the count of each denomination of bills and/or coins.
 
 #   PHPUnit Testing
-
+    This project has unit testing implementation.
 
 #  Note
    Returns JSON format.

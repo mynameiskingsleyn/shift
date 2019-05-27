@@ -29,7 +29,7 @@ class CashierController extends Controller //AbstractController
     */
     public function calculateChange(Request $request)
     {
-        //sample api.endpoint url http://switch.test/cashierapi/calculatechange?total_cost=234.34&amount_provided=345.33
+        //sample api.endpoint url http://switch.test/api/checkout?total_cost=234.34&amount_provided=340.353
 
         $total_cost = $request->get('total_cost');
         $amount_provided = $request->get('amount_provided');

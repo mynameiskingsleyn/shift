@@ -9,7 +9,7 @@ class USAMoney extends WorldMoney implements AppMoneyInterface
 {
     protected $bank;
     protected $sbank;
-    public function __construct($cost, $amount)
+    public function __construct($cost=0, $amount=0)
     {
         parent::__construct($cost, $amount);
         $this->bank = ['Hundred'=>0,'Fifty'=>0,'Twenty'=>0,'Ten'=>0,'Five'=>0,'One'=>0,'Quarter'=>0,'Dime'=>0,'Nickle'=>0,'Penny'=>0];
