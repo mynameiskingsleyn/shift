@@ -10,11 +10,12 @@ This project was built with symfony4 PHP framework.
 #   Currency
     App will return error if input value does not meet the following specs.
     1. Not a number.
-    2. Contains any special characters other than '.' or url friendly Characters(Note only amount before such special character would be processed).
-    3. Decimal part of the number is longer than 2 digits.
+    2. Contains any special characters other than '.' or url friendly Characters(Note only amount before such special character would
+        be processed).
+    3. Input can only have 0 to 2 decimal places number
 
 #   Technicality
-    This project demonstrates an OOP approach to programing
+    This project demonstrates an OOP approach of programing
     It also demonstrates two main advance concepts. TDD Pattern was not used.
       1. Service Oriented Architecture.
       2. Repository pattern.
@@ -22,10 +23,7 @@ This project was built with symfony4 PHP framework.
 #   Functionality
     #input Accepts amount provided at input amount_provided(in dolars and/or cents), total cost at param total_cost(in dolars and/or cents)
     #output Returns your change amount in Dolars and cents. Also provides the exact change by returning the count of each denomination of bills and/or coins.
+    all returns are in JSON format.
 
 #   PHPUnit Testing
-    This project has unit testing implementation.
-
-#  Note
-   Returns JSON format.
-   This app has the potential of handling more than USA money denomination.
+    This project has implemented some unit testing.

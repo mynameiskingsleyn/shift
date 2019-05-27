@@ -3,7 +3,6 @@
 namespace App\Controller\Api;
 
 use App\Service\USAMoney;
-//use App\Interfaces\AppMoneyInterface;
 use App\Repository\AppRepository\AppMoneyRepository;
 //use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 //use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
 * @Route("/api",name="api_")
@@ -39,7 +39,7 @@ class CashierController extends Controller //AbstractController
             'status' => 10000, //missing entry
             'message'=> 'Error: One or more entries are missing'
           ];
-            return new Response(json_encode($data));
+            return new JsonResponse($data);
         }
         $this->money->setModel(new USAMoney($total_cost, $amount_provided));// for usa currency api
         $this->money->validateTransaction();
@@ -51,7 +51,7 @@ class CashierController extends Controller //AbstractController
             'error_message'=> $this->money->getMessage()
           ];
 
-            return new Response(json_encode($data));
+            return new JsonResponse($data);
         }
         $balance = $this->money->calculate();
         if ($balance < 0) {
@@ -75,11 +75,6 @@ class CashierController extends Controller //AbstractController
             'change' =>$this->money->getBank()
           ];
         }
-        $response = json_encode($data);
-
-        return $this->render('Api/cashback.json.twig', [
-           'response'=>$response
-          ]);
-        //return new Response($response);
+        return new JsonResponse($data);
     }
 }
