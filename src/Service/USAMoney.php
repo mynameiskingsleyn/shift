@@ -41,9 +41,9 @@ class USAMoney extends WorldMoney implements AppMoneyInterface
         return $this->squize($num, $div, $denom);
     }
 
-    public function setTransaction($totalCost, $amountProvided)
+    public function setTransaction($totalCost=0, $amountProvided=0)
     {
-        $this->total_cost = $totalCost;
-        $this->amount_provided = $amountProvided;
+        $this->cost = $totalCost;
+        $this->amount = $amountProvided;
     }
 }

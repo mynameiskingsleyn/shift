@@ -34,7 +34,19 @@ class USAMoneyTest extends TestCase
             $this->assertTrue(array_key_exists($key, $newBank));
             $this->assertTrue($newBank[$key]==$value);
         }
-        // $usMoney->tenderChange($num);
-        //dd($newBank);
+    }
+
+    public function testValidation()
+    {
+        $cost = 234.23;
+        $tendered = 345.45;
+        $usMoney = new USAMoney($cost, $tendered);
+        $this->assertTrue($usMoney->validated());
+        $usMoney->validateTransaction();
+        $this->assertTrue($usMoney->validated());
+        $newCost = 234.5334;
+        $usMoney->setTransaction($newCost, $tendered);
+        $usMoney->validateTransaction();
+        $this->assertFalse($usMoney->validated());
     }
 }

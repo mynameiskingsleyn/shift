@@ -163,7 +163,23 @@ abstract class WorldMoney
                 break;
             }
         }
+        // test for change unit
+        if ($goodMoney) {
+            $goodMoney = $this->moreMoneyValidation($money);
+        }
         return $goodMoney;
+    }
+
+    final protected function moreMoneyValidation($money)
+    {
+        $hasCents = strpos($money, '.');
+        if ($hasCents === false) {
+            return true;
+        }
+        $tMoney = (string)$money;
+        $exp_null = $hasCents+3;
+        $check = isset($tMoney[$exp_null]);
+        return !$check;
     }
 
     final public function validated()
