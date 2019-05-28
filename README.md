@@ -15,6 +15,8 @@ This project was built with symfony4 PHP framework.
         be processed).
     3. Input has more than 2 decimal places.
 
+    4. Input larger than 9999999999.99
+
 #   Technicality
     This project uses OOP pattern.
     It also demonstrates two main advance concepts.
