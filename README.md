@@ -1,4 +1,4 @@
-# Shift Pro.
+# Switch Project.
 This project was built with symfony4 PHP framework.
 #
     This is a simple api end point which accepts two parameters total_cost and amount_provided.
