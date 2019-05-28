@@ -155,35 +155,9 @@ abstract class WorldMoney implements AppServiceMoneyInterface
 
     final protected function testMoneyInput($money)
     {
-        // $goodPathern = '/([0-9.])/';
-        // $goodMoney = true;
-        // $moneyA = str_split($money, 1);
-        // foreach ($moneyA as $unit) {
-        //     $goodP = preg_match($goodPathern, $unit);
-        //     if (!$goodP) {
-        //         $goodMoney = false;
-        //         break;
-        //     }
-        // }
-        // // test for change unit
-        // if ($goodMoney) {
-        //     $goodMoney = $this->moreMoneyValidation($money);
-        // }
         $goodPattern = '/^\d{0,10}.?\d{0,2}$/';
         $goodMoney = preg_match($goodPattern, $money);
         return $goodMoney;
-    }
-
-    final protected function moreMoneyValidation($money)
-    {
-        $hasCents = strpos($money, '.');
-        if ($hasCents === false) {
-            return true;
-        }
-        $tMoney = (string)$money;
-        $exp_null = $hasCents+3;
-        $check = isset($tMoney[$exp_null]);
-        return !$check;
     }
 
     final public function validated()
