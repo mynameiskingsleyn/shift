@@ -43,3 +43,6 @@ This project was built with symfony4 PHP framework.
 
 #   Testing
     PHPUnit testing was used in this project.
+
+#   To do!
+    Will be converting this project to a fully functional self checkout program. stay tunned!!

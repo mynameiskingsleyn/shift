@@ -38,7 +38,7 @@ class CashierController extends Controller //AbstractController
             $data = [
             'error'=>1,
             'status' => 10000, //missing entry
-            'message'=> 'Error: One or more entries are missing'
+            'error_message'=> 'Error: One or more entries are missing'
           ];
             return new JsonResponse($data);
         }
