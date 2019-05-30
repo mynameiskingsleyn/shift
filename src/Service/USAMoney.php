@@ -46,4 +46,9 @@ class USAMoney extends WorldMoney implements AppMoneyInterface
         $this->cost = $totalCost;
         $this->amount = $amountProvided;
     }
+
+    public function getSbank()
+    {
+        return $this->sbank;
+    }
 }

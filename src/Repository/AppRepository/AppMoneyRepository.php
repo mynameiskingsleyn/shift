@@ -56,4 +56,9 @@ class AppMoneyRepository implements AppMoneyInterface
     {
         return $this->model->setTransaction($cost, $amount);
     }
+
+    public function getSbank()
+    {
+        return $this->model->getSbank();
+    }
 }

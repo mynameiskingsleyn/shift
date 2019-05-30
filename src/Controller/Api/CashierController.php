@@ -64,14 +64,14 @@ class CashierController extends Controller //AbstractController
         } elseif ($balance == 0) {
             $data = [
             'error' => 0,
-            'status'=>201,
+            'status'=>200,
             'message'=> 'No change for transaction'
           ];
         } else {
             $this->money->tenderChange($balance);
             $data = [
             'error'=>0,
-            'status'=>201,
+            'status'=>200,
             'balance'=>money_format('$%i', $balance),
             'change' =>$this->money->getBank()
           ];

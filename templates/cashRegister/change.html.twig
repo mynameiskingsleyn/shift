@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <div class="row">
+      <div class="col-12">
+         <table>
+          <tbody>
+            <tr>
+              <th>Cost </th><td> ${{ result['cost'] }}</td>
+            </tr>
+            <tr>
+              <th>Amount tendered </th><td> ${{ result['amount'] }}</td>
+            </tr>
+            <tr>
+              <th>change </th><td> {{ result['balance'] }}</td>
+            </tr>
+            {% for key, value in result['change'] %}
+              <tr>
+                <th> {{ key }}s</th> <td> {{ value }}    </td>
+              </tr>
+
+            {% endfor %}
+
+
+          </tbody>
+
+         </table>
+      </div>
+
+    </div>
+
+
+{% endblock %}
