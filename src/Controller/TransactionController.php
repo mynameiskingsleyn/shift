@@ -83,6 +83,10 @@ class TransactionController extends Controller
     public function pay(Request $request)
     {
         //
-        return $this->render('cashRegister/checkout.html.twig');
+        $denom = $this->money->getDenom();
+        //dd($denom);
+        return $this->render('cashRegister/checkout.html.twig', [
+          'denom'=>$denom
+        ]);
     }
 }

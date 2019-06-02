@@ -14,6 +14,9 @@ abstract class WorldMoney implements AppServiceMoneyInterface
     protected $message;
     protected $validated;
     protected $status;
+    protected $bank;
+    protected $sBank;
+    protected $denom;
     public function __construct($cost, $amount)
     {
         $this->cost = $cost;
@@ -174,4 +177,7 @@ abstract class WorldMoney implements AppServiceMoneyInterface
     {
         return $this->message;
     }
+
+    abstract public function getSbank();
+    abstract public function getDenom();
 }

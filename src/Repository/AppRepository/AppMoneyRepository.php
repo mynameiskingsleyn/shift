@@ -61,4 +61,9 @@ class AppMoneyRepository implements AppMoneyInterface
     {
         return $this->model->getSbank();
     }
+
+    public function getDenom()
+    {
+        return $this->model->getDenom();
+    }
 }
