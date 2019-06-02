@@ -59,9 +59,4 @@ class USAMoney extends WorldMoney implements AppMoneyInterface
     {
         return $this->denom;
     }
-
-    public function getBank()
-    {
-        return $this->bank;
-    }
 }
