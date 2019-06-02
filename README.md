@@ -26,15 +26,12 @@ This project was built with symfony4 PHP framework.
 #   Scalability
     Project was built with Scalability in mind. Project currently handles USA dollar and cents denomination pattern,
     but has the potential of handling other currencies denominations that do not fall within the same pattern.
-    The parent service takes care of most known denominations without the coins. Coins are handled by child services since such
-    denomination could be specific to countries (e.g a lot of countries don't have Quarters).
-    Now to handle other denomination patterns we only need to take these 3 steps.
-    1. Create a new service that extends our parent Service(WorldMoney) or child service USAMoney(if child has denominations).
-    2. Create two properties sBank and bank of type array. bank having an associative array of denominations ordered
-       from highest to lowest, sBank having a list of the denominations ordered exactly as bank.
-    3. Last and final step, add methods that are not currently present in the parent class or child(if child was extended)
-       following the same naming convention as the parent class.
 
+    Now to handle other denomination patterns we only need to take two steps.
+    1. Create a new service that extends our parent Service(WorldMoney) or child service USAMoney(if child has denominations).
+
+    2. Create two associative arrays denom and bank. denom having (values of all denominations in descending order), bank having same
+      value as denom but set to zero.
 
 #   Functionality
     #input Accepts amount provided at input amount_provided(in dollars and/or cents), total cost at param total_cost(in dollars and/or cents)
