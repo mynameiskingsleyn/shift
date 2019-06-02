@@ -22,6 +22,7 @@ class USAMoneyTest extends TestCase
         $num = 235;
         $usMoney = new USAMoney();
         $bank = $usMoney->getBank();
+        //dd($bank);
         //dd($usMoney);
         $this->assertEmpty($bank);
         $usMoney->tenderChange($num);
@@ -48,5 +49,16 @@ class USAMoneyTest extends TestCase
         $usMoney->setTransaction($newCost, $tendered);
         $usMoney->validateTransaction();
         $this->assertFalse($usMoney->validated());
+    }
+
+    public function testReduce()
+    {
+        $cost = 234.23;
+        $tendered = 345.45;
+        $usMoney = new USAMoney();
+        $amount = 230 *100;
+        $bank = ['Hundred'=>100];
+        $change = $usMoney->reduce($bank, $amount);
+        $this->assertEquals(3000, $change);
     }
 }

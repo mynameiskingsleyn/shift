@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Interfaces\AppServiceMoneyInterface;
+use Psr\Log\LoggerInterface;
 
 abstract class WorldMoney implements AppServiceMoneyInterface
 {
@@ -17,6 +18,7 @@ abstract class WorldMoney implements AppServiceMoneyInterface
     protected $bank;
     protected $sBank;
     protected $denom;
+    protected $logger;
     public function __construct($cost, $amount)
     {
         $this->cost = $cost;
@@ -38,13 +40,31 @@ abstract class WorldMoney implements AppServiceMoneyInterface
         $pre = 'set';
         $rem = $num * 100;
         $rem = round($rem);
-        foreach ($this->sbank as $aBank) {
-            $rem = $this->trigger('set'.$aBank, $rem);
+        foreach ($this->denom as $key=> $value) {
+            $note =[$key=>$value];
+            $rem = $this->factor('reduce', $note, $rem);
             if ($rem == 0) {
                 break;
             }
         }
     }
+
+    public function factor($reduce, $bank, $item)
+    {
+        if ($this->hasMethod($reduce)) {
+            return $this->$reduce($bank, $item);
+        }
+    }
+
+    public function reduce($bank, $item)
+    {
+        $denom = key($bank);
+        $value = $bank[$denom];
+        $num = $item;
+        $div = $value * 100;
+        return $this->squize($num, $div, $denom);
+    }
+
     public function getBank()
     {
         $newbank = [];
@@ -66,75 +86,6 @@ abstract class WorldMoney implements AppServiceMoneyInterface
         if ($this->hasMethod($func)) {
             return $this->$func($item);
         }
-    }
-
-    final protected function setFiveThousand(int $num)
-    {
-        $div = 500000;
-        $denom='Hundred';
-        return $this->squize($num, $div, $denom);
-    }
-
-    final protected function setOneThousand(int $num)
-    {
-        $div = 100000;
-        $denom='Hundred';
-        return $this->squize($num, $div, $denom);
-    }
-
-    final protected function setFiveHundred(int $num)
-    {
-        $div = 50000;
-        $denom='Hundred';
-        return $this->squize($num, $div, $denom);
-    }
-
-    final protected function setTwoHundred(int $num)
-    {
-        $div = 20000;
-        $denom='TwoHundred';
-        return $this->squize($num, $div, $denom);
-    }
-
-    final protected function setHundred(int $num)
-    {
-        $div = 10000;
-        $denom='Hundred';
-        return $this->squize($num, $div, $denom);
-    }
-    final protected function setFifty(int $num)
-    {
-        $div = 5000;
-        $denom='Fifty';
-        return $this->squize($num, $div, $denom);
-    }
-
-    final protected function setTwenty(int $num)
-    {
-        $div = 2000;
-        $denom='Twenty';
-        return $this->squize($num, $div, $denom);
-    }
-
-    final protected function setTen(int $num)
-    {
-        $div = 1000;
-        $denom='Ten';
-        return $this->squize($num, $div, $denom);
-    }
-
-    final protected function setFive(int $num)
-    {
-        $div = 500;
-        $denom='Five';
-        return $this->squize($num, $div, $denom);
-    }
-
-    final protected function setOne(int $num)
-    {
-        $div = 100;
-        $denom='One';
-        return $this->squize($num, $div, $denom);
     }
 
     public function validateTransaction()
@@ -178,6 +129,6 @@ abstract class WorldMoney implements AppServiceMoneyInterface
         return $this->message;
     }
 
-    abstract public function getSbank();
     abstract public function getDenom();
+    abstract public function getAllBank();
 }
