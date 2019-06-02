@@ -71,21 +71,21 @@ abstract class WorldMoney implements AppServiceMoneyInterface
     final protected function setFiveThousand(int $num)
     {
         $div = 500000;
-        $denom='Hundred';
+        $denom='FiveThousand';
         return $this->squize($num, $div, $denom);
     }
 
     final protected function setOneThousand(int $num)
     {
         $div = 100000;
-        $denom='Hundred';
+        $denom='OneThousand';
         return $this->squize($num, $div, $denom);
     }
 
     final protected function setFiveHundred(int $num)
     {
         $div = 50000;
-        $denom='Hundred';
+        $denom='FiveHundred';
         return $this->squize($num, $div, $denom);
     }
 
