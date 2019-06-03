@@ -48,8 +48,6 @@ class Money
         return $this->name;
     }
 
-
-
     /**
     * @param mixed $name
     */
@@ -57,6 +55,7 @@ class Money
     {
         $this->name = $name;
     }
+
 
     public function getDenoms()
     {
