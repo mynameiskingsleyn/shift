@@ -26,6 +26,11 @@ class Denom
     */
     private $value;
 
+    /**
+    * @ORM\ManyToMany(targetEntity="App\Entity\Money",inversedBy="denoms")
+    */
+    private $money;
+
     public function getId(): ?int
     {
         return $this->id;

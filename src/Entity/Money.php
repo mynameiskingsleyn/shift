@@ -17,23 +17,38 @@ class Money
     private $id;
 
     /**
-    * ORM\Column(type="string")
+    * @ORM\Column(type="string")
     */
     private $name;
 
-
+    /**
+    * @ORM\ManyToMany(targetEntity="App\Entity\Denom",mappedBy="money")
+    * @ORM\JoinTable(name="money_denom",
+    *   joinColumns={ @ORM\JoinColumn(name="money_id",referencedColumnName="id")},
+    *   inverseJoinColumns={ @ORM\JoinColumn(name="denom_id",referencedColumnName="id")}
+    * )
+    */
+    private $denoms;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName()
+    /**
+    * @param mixed $name
+    */
+    public function getName($name):void
     {
-        return $this->name;
+        $this->name = $name;
     }
 
-    public function setName($name): void
+
+
+    /**
+    * @param mixed $name
+    */
+    public function setName($name):void
     {
         $this->name = $name;
     }
