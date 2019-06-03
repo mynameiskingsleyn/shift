@@ -30,6 +30,11 @@ class Money
     */
     private $denoms;
 
+    public function __construct()
+    {
+        $this->denoms = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -38,9 +43,9 @@ class Money
     /**
     * @param mixed $name
     */
-    public function getName($name):void
+    public function getName()
     {
-        $this->name = $name;
+        return $this->name;
     }
 
 
@@ -51,5 +56,10 @@ class Money
     public function setName($name):void
     {
         $this->name = $name;
+    }
+
+    public function getDenoms()
+    {
+        return $this->denoms;
     }
 }
