@@ -17,16 +17,10 @@ class Money
     private $id;
 
     /**
-<<<<<<< HEAD
     * ORM\Column(type="string")
     */
     private $name;
 
-
-=======
-    * @ORM\Column(type="string")
-    */
-    private $name;
 
     /**
     * @ORM\ManyToMany(targetEntity="App\Entity\Denom",mappedBy="money")
@@ -41,31 +35,22 @@ class Money
     {
         $this->denoms = new ArrayCollection();
     }
->>>>>>> master
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-<<<<<<< HEAD
-=======
+
+
     /**
     * @param mixed $name
     */
->>>>>>> master
     public function getName()
     {
         return $this->name;
     }
-
-<<<<<<< HEAD
-    public function setName($name): void
-    {
-        $this->name = $name;
-    }
-=======
-
 
     /**
     * @param mixed $name
@@ -79,5 +64,4 @@ class Money
     {
         return $this->denoms;
     }
->>>>>>> master
 }
