@@ -14,6 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Repository\MoneyRepository;
+use App\Repository\DenomRepository;
+use Psr\Log\LoggerInterface;
 
 /**
 * @Route("/api",name="api_")
@@ -21,28 +24,32 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class CashierController extends Controller //AbstractController
 {
     private $money;
-    public function __construct(AppMoneyRepository $money)
+    private $moneyRepo;
+    private $denomRepo;
+    public function __construct(AppMoneyRepository $money, DenomRepository $denomRepo, MoneyRepository $moneyRepo)
     {
         $this->money = $money;
+        $this->denomRepo = $denomRepo;
+        $this->moneyRepo = $moneyRepo;
     }
     /**
     * @Rest\Get("/checkout",name="calculate_change")
     */
-    public function calculateChange(Request $request)
+    public function calculateChange(Request $request, LoggerInterface $logger)
     {
         //sample api.endpoint url http://switch.test/api/checkout?total_cost=234.34&amount_provided=340.353
-
+        $logger->info('Calculating change');
         $total_cost = $request->get('total_cost');
         $amount_provided = $request->get('amount_provided');
         if ($total_cost==null || $amount_provided ==null) {
             $data = [
             'error'=>1,
-            'status' => 10000, //missing entry
+            'status' => 206, //missing entry
             'error_message'=> 'Error: One or more entries are missing'
           ];
             return new JsonResponse($data);
         }
-        $this->money->setModel(new USAMoney($total_cost, $amount_provided));// for usa currency api
+        $this->money->setModel(new USAMoney($total_cost, $amount_provided, $this->moneyRepo, $this->denomRepo));// for usa currency api
         $this->money->validateTransaction();
 
         if (!$this->money->validated()) {
@@ -58,7 +65,7 @@ class CashierController extends Controller //AbstractController
         if ($balance < 0) {
             $data = [
             'error'=> 1,
-            'status'=> 3000,
+            'status'=> 412,
             'error_message'=>'More money required'
           ];
         } elseif ($balance == 0) {
