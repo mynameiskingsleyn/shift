@@ -4,11 +4,14 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DenomRepository")
  */
 class Denom
 {
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -25,6 +28,16 @@ class Denom
     * @ORM\Column(type="decimal")
     */
     private $value;
+
+    /**
+    * @ORM\ManyToMany(targetEntity="App\Entity\Money",inversedBy="denoms")
+    */
+    private $money;
+
+    public function __construct()
+    {
+        $this->money = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -50,16 +63,22 @@ class Denom
     /**
     * @param mixed $name
     */
-    public function getName($name):void
+    public function getName()
     {
-        $this->name = $name;
+        return $this->name;
     }
 
     /**
     * @param decimal $value
     */
-    public function getValue($value):void
+
+    public function getValue()
     {
-        $this->value = $value;
+        return $this->value;
+    }
+
+    public function getMoney()
+    {
+        return $this->money;
     }
 }
