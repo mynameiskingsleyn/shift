@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Psr\Log\LoggerInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MoneyRepository")
@@ -29,6 +31,8 @@ class Money
     * )
     */
     private $denoms;
+
+    protected $logger;
 
     public function __construct()
     {

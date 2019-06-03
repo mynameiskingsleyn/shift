@@ -16,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Repository\MoneyRepository;
 use App\Repository\DenomRepository;
+use Psr\Log\LoggerInterface;
 
 /**
 * @Route("/api",name="api_")
@@ -34,10 +35,10 @@ class CashierController extends Controller //AbstractController
     /**
     * @Rest\Get("/checkout",name="calculate_change")
     */
-    public function calculateChange(Request $request)
+    public function calculateChange(Request $request, LoggerInterface $logger)
     {
         //sample api.endpoint url http://switch.test/api/checkout?total_cost=234.34&amount_provided=340.353
-
+        $logger->info('Calculating change');
         $total_cost = $request->get('total_cost');
         $amount_provided = $request->get('amount_provided');
         if ($total_cost==null || $amount_provided ==null) {
