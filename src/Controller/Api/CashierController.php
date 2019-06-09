@@ -49,8 +49,10 @@ class CashierController extends Controller //AbstractController
           ];
             return new JsonResponse($data);
         }
-        $this->money->setModel(new USAMoney($total_cost, $amount_provided, $this->moneyRepo, $this->denomRepo));// for usa currency api
+        $this->money->setModel(new USAMoney($this->moneyRepo, $this->denomRepo));// for usa currency api
+        $this->money->setTransaction($total_cost, $amount_provided);
         $this->money->validateTransaction();
+        //dd($this->money->validated());
 
         if (!$this->money->validated()) {
             $data = [
@@ -83,6 +85,33 @@ class CashierController extends Controller //AbstractController
             'change' =>$this->money->getBank()
           ];
         }
+        return new JsonResponse($data);
+    }
+
+    /**
+    * @Rest\Get("/total",name="calculate_total")
+    */
+
+    public function calculate_total(Request $request)
+    {
+        $denoms = $this->money->getDenom();
+        $addes = [];
+        foreach ($denoms as $key=>$denom) {
+            $got = $request->get($key);
+            if (is_numeric($got)) {
+                $mult = $denom * $got;
+                $addes[] = $mult;
+            }
+        }
+        $sum = 0;
+        foreach ($addes as $add) {
+            $sum += $add;
+        }
+        $data = [
+        'error'=>0,
+        'sum' => $sum, //missing entry
+      ];
+        //var_dump($request->input('Fifty'));
         return new JsonResponse($data);
     }
 }

@@ -18,15 +18,19 @@ class USAMoney extends WorldMoney implements AppMoneyInterface
     protected $ourMoney;
     protected $moneyRepo;
     protected $denomRepo;
-    public function __construct($cost=0, $amount=0, MoneyRepository $moneyRepo, DenomRepository $denomRepo)
+    public function __construct(MoneyRepository $moneyRepo, DenomRepository $denomRepo)
     {
-        parent::__construct($cost, $amount);
+        //parent::__construct($cost, $amount);
+        $this->error=false;
+        $this->success=true;
+        $this->message='';
+        $this->validated = true;
         $this->moneyRepo = $moneyRepo;
         $this->denomRepo = $denomRepo;
         $money = $this->moneyRepo->findBy(['name'=>'UsaMoney']);
         $this->denom =['Hundred'=>100,'Fifty'=>50,'Twenty'=>20,'Ten'=>10,'Five'=>5,'One'=>1,'Quarter'=>.25,
-                    'Dime'=>.10,'Nickle'=>.05,'Penny'=>.01];
-        $this->bank = ['Hundred'=>0,'Fifty'=>0,'Twenty'=>0,'Ten'=>0,'Five'=>0,'One'=>0,'Quarter'=>0,'Dime'=>0,'Nickle'=>0,'Penny'=>0];
+                    'Dime'=>.10,'Nickle'=>.05,'Peny'=>.01];
+        $this->bank = ['Hundred'=>0,'Fifty'=>0,'Twenty'=>0,'Ten'=>0,'Five'=>0,'One'=>0,'Quarter'=>0,'Dime'=>0,'Nickle'=>0,'Peny'=>0];
 
         if ($money) {
             $this->ourMoney = $money[0];
@@ -46,6 +50,7 @@ class USAMoney extends WorldMoney implements AppMoneyInterface
     {
         $this->cost = $totalCost;
         $this->amount = $amountProvided;
+        //dd($this->cost);
     }
 
     public function getDenom()

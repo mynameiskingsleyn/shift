@@ -20,16 +20,8 @@
             </div>
             <table>
               <tr>
-              <!--
-                <td>Hundred: <input type="text" id="Hundred" name="Hundred" class="form-control"></td>
-                <td>Fifty: <input type="text" id="Fifty" name="Fifty" class="form-control"></td>
-                <td>Twenty: <input type="text" id="Twenty" name="Twenty" class="form-control"></td>
-                <td>Ten: <input type="text" id="Ten" name="Ten" class="form-control"></td>
-                <td>Five: <input type="text" id="Five" name="Five" class="form-control"></td>
-                <td>One: <input type="text" id="One" name="One" class="form-control"></td>
-              -->
               {% for key,value in denom %}
-                <td>{{ key }}: <input type="text" id="{{key}}" name="{{ key }}" class="form-control denom"></td>
+                <td>{{ key }}: <input type="text" id="{{key}}" name="{{ key }}" class="form-control denom" onchange="runIt()"></td>
               {% endfor %}
               </tr>
             </table>

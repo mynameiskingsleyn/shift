@@ -19,6 +19,57 @@
 </main>
 {% block javascripts %}
     <script src="{{ asset('build/js/app.js') }}"></script>
+    <script>
+      var denoms = document.getElementsByClassName('denom');
+      //denoms.onChange = runIt();
+      //var denoms = document.querySelectorAll('denom');
+      //alert('length is '+denoms.length);
+      //var base = window.location.hostname;
+      api_url = '/switch.test/api/total';
+      //alert(window.location.hostname);
+      function runIt(){
+        var string = "?";
+        var counter = 0;
+        for(i=0; i< denoms.length; i++){
+          d = denoms[i].value;
+          name = denoms[i].getAttribute("id");
+          if(d==''){
+            d=0;
+          }
+          if(d > 0){
+            if(counter==0){
+              string +=name+'='+d;
+              counter++;
+            }else{
+              string +='&'+name+'='+d;
+            }
+          }
+
+
+
+        }
+        var url = api_url+string;
+        Ajax(url);
+      }
+      function Ajax(string)
+      {
+        string='/'+string;
+        $total_obj = document.getElementById('amount_tendered');
+        $total_obj.value = "calculating..";
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(){
+          if(this.readyState==4 && this.status == 200){
+              var result = JSON.parse(this.responseText);
+              var sum = result.sum;
+              $total_obj.value=sum;
+          }
+        };
+        xhttp.open("GET",string,true);
+        xhttp.send();
+      }
+
+      //alert('working yall');
+    </script>
 {% endblock %}
 </body>
 </html>

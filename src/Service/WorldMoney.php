@@ -19,10 +19,10 @@ abstract class WorldMoney implements AppServiceMoneyInterface
     protected $sBank;
     protected $denom;
     protected $logger;
-    public function __construct($cost, $amount)
+    public function __construct()
     {
-        $this->cost = $cost;
-        $this->amount=$amount;
+        // $this->cost = $cost;
+        // $this->amount=$amount;
         $this->error=false;
         $this->success=true;
         $this->message='';
@@ -37,7 +37,8 @@ abstract class WorldMoney implements AppServiceMoneyInterface
     }
     final public function tenderChange($num)
     {
-        $pre = 'set';
+        //$pre = 'set';
+        //dd('we are here');
         $rem = $num * 100;
         $rem = round($rem);
         foreach ($this->denom as $key=> $value) {
@@ -76,6 +77,7 @@ abstract class WorldMoney implements AppServiceMoneyInterface
 
     public function validateTransaction()
     {
+        //dd('here '.$this->amount);
         $goodCost = $this->testMoneyInput($this->cost);
         $goodAmount = $this->testMoneyInput($this->amount);
         $result = $goodCost && $goodAmount;
@@ -85,6 +87,7 @@ abstract class WorldMoney implements AppServiceMoneyInterface
             $this->message = 'one ore more value has a wrong format';
             $this->status = 3000; //validation error
         }
+        //dd($result);
     }
 
     final public function calculate()

@@ -34,6 +34,8 @@ class AppMoneyRepository implements AppMoneyInterface
     }
     public function validated()
     {
+        //dd($this->model);
+        //dd('here now'.$this->model->validated());
         return $this->model->validated();
     }
 

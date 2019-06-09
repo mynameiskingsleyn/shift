@@ -14,13 +14,19 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 //use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\JsonRequest;
+use App\Repository\MoneyRepository;
+use App\Repository\DenomRepository;
 
 class TransactionController extends Controller
 {
     protected $money;
-    public function __construct(AppMoneyRepository $money)
+    private $moneyRepo;
+    private $denomRepo;
+    public function __construct(AppMoneyRepository $money, DenomRepository $denomRepo, MoneyRepository $moneyRepo)
     {
         $this->money = $money;
+        $this->denomRepo = $denomRepo;
+        $this->moneyRepo = $moneyRepo;
     }
     /**
     * @Rest\Post("/checkout",name="checkout")
@@ -31,8 +37,9 @@ class TransactionController extends Controller
 
         $total_cost = $request->get('total_cost');
         $amount_provided = $request->get('amount_provided');
-        $bank_money = new USAMoney($total_cost, $amount_provided);
-        $this->money->setModel($bank_money);
+        //$bank_money = new USAMoney($this->moneyRepo, $this->denomRepo);
+        // $this->money->setModel($bank_money);
+        // $this->money->setTransaction($total_cost, $amount_provided);
 
         //dd($total_cost);
         //$url = "http://switch.test/api/checkout?total_cost=$total_cost&amount_provided=$amount_provided";
@@ -48,21 +55,16 @@ class TransactionController extends Controller
         curl_close($curl);
         $returned = json_decode($result);
         //dd($returned);
-        $change = $returned->change;
+
         if ($returned->error == 0) {
             $result = [];
-            $denoms = $this->money->getSbank();
-            //dd($denoms);
-            $money_out =[];
-            foreach ($denoms as $aChange) {
-                if (isset($change->$aChange)) {
-                    $money_out[$aChange] = $change->$aChange;
-                }
-            }
+            $change = $returned->change;
+            $change = get_object_vars($change);
+            //dd($vars);
             $result['cost'] = $total_cost;
             $result['amount'] = $amount_provided;
             $result['balance'] = $returned->balance;
-            $result['change'] = $money_out;
+            $result['change'] = $change;
             //dd($result);
             return $this->render('cashRegister/change.html.twig', [
               'result' => $result
