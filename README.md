@@ -11,7 +11,7 @@ This project was built with symfony4 PHP framework.
  
 
 #   Currency
-    1. This app acceps American currency, but have the potential to use other currencies
+    1. This app accepts American currency, but have the potential to accept other currencies
 #   Technicality
     This project uses OOP pattern.
     It also demonstrates two main advance concepts.
