@@ -1,12 +1,14 @@
 # Project.
 This project was built with symfony4 PHP framework.
 #
-    This project simulates the whole process involved with self checkout.
-    ones total amount is realized.
-    No need to know your math, just add money denomination e.g( $100=>3, $50=>2) etc
-    The app calculates your sum using AJAX. and ones transaction is completed, it calculates the exact change in bills and or coins.
+    This is just a personal project, not affiliated to any particular job.(Symfony Framework -PHP)
+    This project simulates  self checkout register.
+    ones total amount is realized, no need to know your math, just add money denomination e.g( $100=>3, $50=>2) etc
+    The app calculates your sum and populates tendered amount using ajax request to an API.  
+    Ones transaction is completed, it calculates the exact change in bills and or coins.
     It mimics a live cashier-register->reports when there is cash shortage(e.g $5 is short please add more)
     also reports when there is too much cash denomination e.g( too many $5 denominations in register) etc.
+ 
 
 #   Currency
     1. This app acceps American currency, but have the potential to use other currencies
